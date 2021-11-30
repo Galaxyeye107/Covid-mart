@@ -34,7 +34,7 @@ def register(request):
             user.save()
 
             current_site = get_current_site(request=request)
-            mail_subject = 'Activate your blog account.'
+            mail_subject = 'Kích hoạt tài khoản của bạn'
             message = render_to_string('accounts/active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -135,7 +135,7 @@ def activate(request, uidb64, token):
             request=request, message="Tài khoản của bạn đã được kích hoạt, vui lòng đăng nhập!")
         return render(request, 'accounts/login.html')
     else:
-        messages.error(request=request, message="Activation link is invalid!")
+        messages.error(request=request, message="Đường dẫn kích hoạt không hợp lệ!")
         return redirect('home')
 
 

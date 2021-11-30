@@ -97,8 +97,8 @@
                                     </td>
                                     <td>
                                         <div class="price-wrap">
-                                            <var class="price">$ {{ cart_item.sub_total }}</var>
-                                            <small class="text-muted"> $ {{ cart_item.product.price }} / sp </small>
+                                            <var class="price">{{ cart_item.sub_total }}.000 vnđ</var>
+                                            <small class="text-muted"> {{ cart_item.product.price }}.000 vnđ / sp </small>
                                         </div> <!-- price-wrap .// -->
                                     </td>
                                 </tr>
@@ -114,16 +114,16 @@
 					<div class="card-body">
 						<dl class="dlist-align">
 							<dt>Tổng giá:</dt>
-							<dd class="text-right">${{ total }}</dd>
+							<dd class="text-right">{{ total }}.000 vnđ</dd>
 						</dl>
 						<dl class="dlist-align">
 							<dt>Phí ship:</dt>
-							<dd class="text-right">${{ tax }}</dd>
+							<dd class="text-right">{{ tax }}.000 vnđ</dd>
 						</dl>
 						<dl class="dlist-align">
 							<dt>Tổng cộng:</dt>
 							<dd class="text-right text-dark b">
-								<strong>${{ grand_total }}</strong>
+								<strong>{{ grand_total }}.000 vnđ</strong>
 							</dd>
 						</dl>
 						<hr />
