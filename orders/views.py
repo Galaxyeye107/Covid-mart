@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 
 
 def sendEmail(request, order):
-    mail_subject = 'Thank you for your order!'
+    mail_subject = 'Cảm ơn bạn đã thanh toán!'
     message = render_to_string('orders/order_recieved_email.html', {
         'user': request.user,
         'order': order

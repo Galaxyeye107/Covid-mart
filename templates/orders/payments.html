@@ -192,12 +192,12 @@
                     },
                     success: function(response) {
                         data = response.data;
-                        alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                        alert('Thanh toán thành công!');
                         window.location.href = redirectUrl + '?order_number=' + data["order_number"] + '&payment_id=' + data["transID"];
                     },
                     error: function(response) {
                         error = response.error;
-                        alert('Transaction completed, but 1 error occurred: ' + e);
+                        alert('Thanh toán thất bại');
                     }
                 });
             });
