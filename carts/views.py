@@ -14,7 +14,7 @@ def _cart_id(request):
 
 def add_cart(request, product_id):
     current_user = request.user
-    product = Product.objects.get(id=product_id)    # Get object product
+    product = Product.objects.get(id=product_id)    
     if current_user.is_authenticated:
         product_variations = list()
         if request.method == 'POST':
@@ -69,7 +69,7 @@ def add_cart(request, product_id):
                 except ObjectDoesNotExist:
                     pass
         try:
-            cart = Cart.objects.get(cart_id=_cart_id(request=request))  # Get cart using the _cart_id
+            cart = Cart.objects.get(cart_id=_cart_id(request=request))  
         except Cart.DoesNotExist:
             cart = Cart.objects.create(
                 cart_id=_cart_id(request)
@@ -169,7 +169,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
         tax = 20
         grand_total = total + tax
     except ObjectDoesNotExist:
-        pass    # Chỉ bỏ qua
+        pass    
     print(request.user)
     context = {
         'total': total,
@@ -183,7 +183,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
 @login_required(login_url='login')
 def checkout(request, total=0, quantity=0, cart_items=None):
     try:
-        # cart = Cart.objects.get(cart_id=_cart_id(request=request))
+        
         cart_items = CartItem.objects.filter(user=request.user, is_active=True)
         for cart_item in cart_items:
             total += cart_item.product.price * cart_item.quantity
@@ -191,7 +191,7 @@ def checkout(request, total=0, quantity=0, cart_items=None):
         tax = 20
         grand_total = total + tax
     except ObjectDoesNotExist:
-        pass    # Chỉ bỏ qua
+        pass    
     context = {
         'total': total,
         'quantity': quantity,

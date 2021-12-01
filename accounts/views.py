@@ -72,8 +72,6 @@ def login(request):
                     for cart_item in cart_items:
                         variations = cart_item.variations.all()
                         product_variation.append(list(variations))
-                        # cart_item.user = user
-                        # cart_item.save()
                     cart_items = CartItem.objects.filter(user=user)
                     existing_variation_list = [list(item.variations.all()) for item in cart_items]
                     id = [item.id for item in cart_items]
@@ -151,7 +149,7 @@ def forgotPassword(request):
             user = Account.objects.get(email__exact=email)
 
             current_site = get_current_site(request=request)
-            mail_subject = 'Reset your password'
+            mail_subject = 'Đặt lại mật khẩu của bạn'
             message = render_to_string('accounts/reset_password_email.html', {
                 'user': user,
                 'domain': current_site.domain,

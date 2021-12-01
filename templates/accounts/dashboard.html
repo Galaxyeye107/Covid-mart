@@ -1,51 +1,46 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<!-- ========================= SECTION CONTENT ========================= -->
+{% extends 'base.html' %} {% load static %} {% block content %}
 <section class="section-conten padding-y bg">
     <div class="container">
         {% include "includes/alerts.html" %}
-        <div class="row" >
-            
+        <div class="row">
+
             <main class="col-md-12">
                 <article class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="container">
                                 <h2>Thông tin tài khoản</h2>
-                                
+
                                 <table class="table table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th>Họ tên</th>
-                                      <td>{{ user.last_name }} {{ user.first_name }} </td>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th>Email</th>
-                                      <td>{{ user.email }}</td>
-                                      
-                                    </tr>
-                                    <tr>
-                                      <th>Số điện thoại</th>
-                                      <td>{{ user.phone_number }}</td>
-                                      
-                                    </tr>
-                                    
-                                  </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th>Họ tên</th>
+                                            <td>{{ user.last_name }} {{ user.first_name }} </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ user.email }}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Số điện thoại</th>
+                                            <td>{{ user.phone_number }}</td>
+
+                                        </tr>
+
+                                    </tbody>
                                 </table>
-                              </div>
-                            
-                        </div> <!-- row.// -->
-                    </div> <!-- card-body .// -->
-                    
+                            </div>
+
+                        </div>
+                    </div>
+
             </main>
-        </div> <!-- row.// -->
+        </div>
     </div>
 
 
 </section>
-<!-- ========================= SECTION CONTENT END// ========================= -->
 {% endblock %}
