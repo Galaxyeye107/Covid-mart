@@ -13,7 +13,6 @@ from django.contrib.auth.tokens import default_token_generator
 from .forms import RegistrationForm
 from accounts.models import Account
 from carts.views import _cart_id
-
 import requests
 
 
@@ -34,7 +33,7 @@ def register(request):
             user.save()
 
             current_site = get_current_site(request=request)
-            mail_subject = 'Activate your blog account.'
+            mail_subject = 'Kích hoạt tài khoản của bạn'
             message = render_to_string('accounts/active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -72,8 +71,6 @@ def login(request):
                     for cart_item in cart_items:
                         variations = cart_item.variations.all()
                         product_variation.append(list(variations))
-                        # cart_item.user = user
-                        # cart_item.save()
                     cart_items = CartItem.objects.filter(user=user)
                     existing_variation_list = [list(item.variations.all()) for item in cart_items]
                     id = [item.id for item in cart_items]
@@ -135,7 +132,7 @@ def activate(request, uidb64, token):
             request=request, message="Tài khoản của bạn đã được kích hoạt, vui lòng đăng nhập!")
         return render(request, 'accounts/login.html')
     else:
-        messages.error(request=request, message="Activation link is invalid!")
+        messages.error(request=request, message="Đường dẫn kích hoạt không hợp lệ!")
         return redirect('home')
 
 
@@ -143,6 +140,11 @@ def activate(request, uidb64, token):
 def dashboard(request):
     return render(request, "accounts/dashboard.html")
 
+def user_order(request):
+    return render(request, "accounts/user_order.html")
+
+def comment(request):
+    return render(request, "accounts/comment.html")
 
 def forgotPassword(request):
     try:
@@ -151,7 +153,7 @@ def forgotPassword(request):
             user = Account.objects.get(email__exact=email)
 
             current_site = get_current_site(request=request)
-            mail_subject = 'Reset your password'
+            mail_subject = 'Đặt lại mật khẩu của bạn'
             message = render_to_string('accounts/reset_password_email.html', {
                 'user': user,
                 'domain': current_site.domain,

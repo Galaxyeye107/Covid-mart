@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 
 
 def sendEmail(request, order):
-    mail_subject = 'Thank you for your order!'
+    mail_subject = 'Cảm ơn bạn đã thanh toán!'
     message = render_to_string('orders/order_recieved_email.html', {
         'user': request.user,
         'order': order
@@ -29,9 +29,9 @@ def payments(request):
             payment_method = data['payment_method']
             status = data['status']
 
-            # Lấy bản ghi order
+            
             order = Order.objects.get(user=request.user, is_ordered=False, order_number=order_id)
-            # Tạo 1 bản ghi payment
+            
             payment = Payment(
                 user=request.user,
                 payment_id=trans_id,
@@ -45,7 +45,7 @@ def payments(request):
             order.is_ordered = True
             order.save()
 
-            # Chuyển hết cart_item thành order_product
+            
             cart_items = CartItem.objects.filter(user=request.user)
             for item in cart_items:
                 order_product = OrderProduct()
@@ -64,18 +64,18 @@ def payments(request):
                 order_product.variations.set(product_variation)
                 order_product.save()
 
-                # Reduce the quantity of the sold products
+                
                 product = Product.objects.get(id=item.product_id)
                 product.stock -= item.quantity
                 product.save()
 
-            # Xóa hết cart_item
+            
             CartItem.objects.filter(user=request.user).delete()
 
-            # Gửi thư cảm ơn
+            
             sendEmail(request=request, order=order)
 
-            # Phản hồi lại ajax
+            
             data = {
                 'order_number': order.order_number,
                 'transID': payment.payment_id,
@@ -88,7 +88,7 @@ def payments(request):
 def place_order(request, total=0, quantity=0,):
     current_user = request.user
 
-    # If the cart count is less than or equal to 0, then redirect back to shop
+    
     cart_items = CartItem.objects.filter(user=current_user)
     cart_count = cart_items.count()
     if cart_count <= 0:
@@ -105,7 +105,7 @@ def place_order(request, total=0, quantity=0,):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            # Store all the billing information inside Order table
+            
             data = Order()
             data.user = current_user
             data.first_name = form.cleaned_data['first_name']
@@ -122,12 +122,12 @@ def place_order(request, total=0, quantity=0,):
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
-            # Generate order number
+            
             yr = int(datetime.date.today().strftime('%Y'))
             dt = int(datetime.date.today().strftime('%d'))
             mt = int(datetime.date.today().strftime('%m'))
             d = datetime.date(yr, mt, dt)
-            current_date = d.strftime("%Y%m%d")     # 20210305
+            current_date = d.strftime("%Y%m%d")     
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()

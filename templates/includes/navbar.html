@@ -7,7 +7,7 @@
                 <div class="col-lg-2 col-md-3 col-6">
                     <a href="{% url 'home' %}" class="brand-wrap">
                         <img class="logo" src="{% static './images/CovidMart.png' %}">
-                    </a> <!-- brand-wrap.// -->
+                    </a>
                 </div>
                 <div class="col-lg col-sm col-md col-6 flex-grow-0">
                     <div class="category-wrap dropdown d-inline-block float-right">
@@ -15,13 +15,11 @@
                             <i class="fa fa-bars"></i> Danh mục sản phẩm
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'store' %}">Tất cả sản phẩm</a>
-                            {% for category in links %}
-                            <a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a>
-                            {% endfor %}
+                            <a class="dropdown-item" href="{% url 'store' %}">Tất cả sản phẩm</a> {% for category in links %}
+                            <a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a> {% endfor %}
                         </div>
-                    </div> <!-- category-wrap.// -->
-                </div> <!-- col.// -->
+                    </div>
+                </div>
                 <a href="https://bando.tphcm.gov.vn/ogis" class="btn btn-outline-info">Covidmap</a>
                 <div class="col-lg  col-md-6 col-sm-12 col">
                     <form action="{% url 'search' %}" class="search" method="GET">
@@ -33,37 +31,43 @@
                                 </button>
                             </div>
                         </div>
-                    </form> <!-- search-wrap .end// -->
-                </div> <!-- col.// -->
+                    </form>
+                </div>
                 <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                     <div class="d-flex justify-content-end mb-3 mb-lg-0">
-                        <div >
-                            <a href="{% url 'cart' %}" class="widget-header pr-3 ">
+                        <div>
+                            <a href="{% url 'cart' %}" class="widget-header pr-4 ">
                                 <div class="icon icon-sm "><i class="fa fa-shopping-cart"></i>
                                 </div>
                                 <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
                             </a>
                         </div>
                         {% if user.id is None %}
-                        <div class="widget-header">
-                            <small class="title text-white">Welcome guest!</small>
-                            <div >
+                        <div class=" widget-header pr-4">
+                            <small class="title text-white">Chào mừng bạn!</small>
+                            <div>
                                 <a href="{% url 'login' %}" style="color: white;">Đăng nhập</a> <span class="light-transp"> | </span>
                                 <a href="{% url 'register' %} " style="color: white;"> Đăng ký</a>
                             </div>
                         </div>
                         {% else %}
-                        <div class="widget-header">
-                            <small class="title text-white">Xin chào {{ user.first_name }}!</small>
-                            <div>
-                                <a href="{% url 'dashboard' %}"style="color: white;">Hồ sơ</a> <span class="dark-transp"> | </span>
-                                <a href="{% url 'logout' %}" style="color: white;"> Đăng xuất</a>
-                            </div>
+                        <div class="widget-header pr-4">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-nooutline-info text-white dropdown-toggle" data-toggle="dropdown">
+                                    <strong class="text-uppercase">{{ user.first_name }}</strong>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="{% url 'dashboard' %}"><i class="fa fa-user-o"></i> Tài Khoản</a>
+                                  <a class="dropdown-item" href="#"><i class="fa fa-exchange"></i> Đơn hàng</a>
+                                  <a class="dropdown-item" href="#"><i class="fa fa-check"></i> Bình luận</a>
+                                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-unlock-alt"></i> Đăng xuất</a>
+                                </div>
+                              </div>
                         </div>
                         {% endif %}
-                    </div> <!-- widgets-wrap.// -->
-                </div> <!-- col.// -->
-            </div> <!-- row.// -->
-        </div> <!-- container.// -->
-    </section> <!-- header-main .// -->
-</header> <!-- section-header.// -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
