@@ -21,17 +21,17 @@
                             <th class="text-left">Ngày </th>
                             <th class="text-left">Chi tiết</th>
                         </tr>
-                        
+                        {% for item in ordered_products %}
                             <tr>
-                                <td class="text-left">{{ user.id }} </td>
-                                <td class="text-left">{{ user.last_name }} </td>
-                                <td class="text-left">{{ user.first_name }} </td>
-                                <td class="text-left">{{ subtotal }}.000 VND</td>
-                                <td class="text-left">{{ order.state }} </td>
-                                <td class="text-left">{{ order.created_at }} </td>
+                                <td class="text-left"> {{ item.product.product_name }} </td>
+                                <td class="text-left"></td>
+                                <td class="text-left"></td>
+                                <td class="text-left"></td>
+                                <td class="text-left"> </td>
+                                <td class="text-left"> </td>
                                 <td class="text-left"><a class="primary-btn" href="/user/orderdetail/{{ rs.id }}"> Chi tiết </a></td>
                             </tr>
-                        
+                        {% endfor %}
                     </table>
 
                 </div>

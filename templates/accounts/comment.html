@@ -23,17 +23,16 @@
                         {% for review in reviews %}
                             <tr>
                                 <td class="text-left">
-                                    <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}">
-                                        <strong> {{ review.user.full_name }} </strong>
-                                    </a>
+                                    <strong> {{ review.product }} </strong>
                                 </td>
+                                <td class="text-left">{{ review.rating }}</td>
+                                <td class="text-left">{{ review.subject }} </td>
                                 <td class="text-left">{{ review.review }} </td>
-                                <td class="text-left"> </td>
-                                <td class="text-left"></td>
-                                <td class="text-left"></td>
-                                <td class="text-left"> </td>
+                                <td class="text-left"> {{ review.updated_at }}</td>
                                 <td class="text-left">
-                                    <a class="primary-btn" href="/user/deletecomment/{{ user.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"> Delete </a>
+                                    <a href="#"
+										class="btn btn-info" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận?')">Xóa</a>
+                                    
                                 </td>
                             </tr>
                         {% endfor %}

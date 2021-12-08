@@ -7,11 +7,14 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 
+from .forms import Account
 from .forms import RegistrationForm
-from accounts.models import Account
+from store.models import Product, ReviewRating
+from orders.models import Order, OrderProduct, Payment
 from carts.views import _cart_id
 import requests
 
@@ -141,10 +144,35 @@ def dashboard(request):
     return render(request, "accounts/dashboard.html")
 
 def user_order(request):
-    return render(request, "accounts/user_order.html")
+    ordered_products = CartItem.objects.filter(user=request.user)
+    for item in ordered_products:
+                order_product = OrderProduct()
+                
+                order_product.user_id = request.user.id
+                order_product.product_id = item.product_id
+                order_product.quantity = item.quantity
+                order_product.product_price = item.product.price
+                order_product.ordered = True
+                order_product.save()
 
-def comment(request):
-    return render(request, "accounts/comment.html")
+                cart_item = CartItem.objects.get(id=item.id)
+                product_variation = cart_item.variations.all()
+                order_product = OrderProduct.objects.get(id=order_product.id)
+                order_product.variations.set(product_variation)
+                order_product.save()
+
+                
+                product = Product.objects.get(id=item.product_id)
+                product.stock -= item.quantity
+                product.save()
+    context = {
+        'ordered_products': ordered_products,
+    }
+    return render(request, "accounts/user_order.html", context=context)
+
+
+def user_update(request):
+    return render(request, "user_update/comment.html")
 
 def forgotPassword(request):
     try:
@@ -205,3 +233,18 @@ def reset_password(request):
         else:
             messages.error(request, message="Mật khẩu không khớp!")
     return render(request, 'accounts/reset_password.html')
+
+def comment(request):
+    reviews = ReviewRating.objects.filter(status=True)
+    context = {
+        'reviews': reviews,
+    }
+    return render(request, 'accounts/comment.html', context=context)
+
+
+def user_deletecomment(request,id):
+    current_user = request.user
+    ReviewRating.objects.filter(id=id, user_id=current_user.id).delete()
+    messages.success(request, 'Xóa bình luận.')
+    return HttpResponseRedirect("{% url 'comment' %}")
+

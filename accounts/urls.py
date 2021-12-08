@@ -12,6 +12,7 @@ urlpatterns = [
     path('', views.dashboard, name='dashboard'),
 
     path('user_order/', views.user_order, name='user_order'),
+    path('user_update/', views.user_update, name='user_update'),
     path('comment/', views.comment, name='comment'),
 
     path('activate/<uidb64>/<token>', views.activate, name='activate'),

@@ -60,6 +60,7 @@ def product_detail(request, category_slug, product_slug=None):
     return render(request, 'store/product_detail.html', context=context)
 
 
+
 def search(request):
     if 'q' in request.GET:
         q = request.GET.get('q')

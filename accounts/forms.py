@@ -3,7 +3,6 @@ from django.forms import CharField
 from django.forms import widgets
 from .models import Account
 
-
 class RegistrationForm(forms.ModelForm):
     first_name = forms.CharField(max_length=100)
 
@@ -43,3 +42,4 @@ class RegistrationForm(forms.ModelForm):
             raise forms.ValidationError(
                 'Mật khẩu không trùng khớp!'
             )
+    
