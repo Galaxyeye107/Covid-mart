@@ -174,6 +174,9 @@ def user_order(request):
 def user_update(request):
     return render(request, "user_update/comment.html")
 
+def shipper(request):
+    return render(request, "accounts/shipper.html")
+
 def forgotPassword(request):
     try:
         if request.method == 'POST':
